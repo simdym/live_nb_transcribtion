@@ -7,7 +7,8 @@ from typing import Any, Callable
 
 @dataclass
 class ChannelManagerConfig:
-    min_rec_length_for_extraction: int = 16000 * 10 # 5s
+    min_rec_length: int = 16000 * 10 # 5s
+    overlap: int = 8000
 
 
 class RecordingThreadReady():
@@ -18,7 +19,7 @@ class RecordingThreadReady():
     
 
     def __call__(self, thread, recording):
-        if len(recording) > self.config.min_rec_length_for_extraction:
+        if len(recording) > self.config.min_rec_length:
             return True
         elif not thread.is_alive():
             return True

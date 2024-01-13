@@ -35,9 +35,9 @@ class SingleRecorderChannel(AudioChannel):
         self._thread = threading.Thread(target=self.recorder.record, args=(duration, self._recording))
         self._thread.start()
     
-    def get_audio(self, samples: int = None):
+    def get_audio(self, samples: int = None, overlap: int = 0):
         """Gets numpy recording from thread"""
-        return NumpyRecording(self._recording)
+        return NumpyRecording(self._recording, samples, overlap)
     
     def is_running(self):
         """Check if channel is running"""

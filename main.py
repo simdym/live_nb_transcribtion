@@ -1,6 +1,4 @@
-import threading
 from datetime import datetime
-import time
 
 from channel_manager import ChannelManager, ChannelManagerConfig, RecordingThreadReady
 from transcribtion import Transcriber, TranscriberConfig
@@ -26,7 +24,12 @@ def main():
         ready_threads = channel_manager.get_ready_channels(recording_thread_ready)
 
         for channel_name in ready_threads:
-            numpy_recordings.append(channel_manager[channel_name].get_audio())
+            numpy_recordings.append(
+                channel_manager[channel_name].get_audio(
+                    samples=channel_manager_config.min_rec_length,
+                    overlap=channel_manager_config.overlap
+                )
+            )
 
         if numpy_recordings:
             print("Transcribing")

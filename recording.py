@@ -37,8 +37,10 @@ class BinaryRecording():
 
 
 class NumpyRecording():
-    def __init__(self, binary_recording: BinaryRecording, samples: int = None, delete: bool = True):
+    def __init__(self, binary_recording: BinaryRecording, samples: int = None, overlap: int = 0, delete: bool = True):
         """Extract contents as numpy array"""
+        if overlap is None:
+            overlap
 
         if samples is None: # If none extract all
             samples = len(binary_recording)

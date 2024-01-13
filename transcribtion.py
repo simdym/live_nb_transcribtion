@@ -41,7 +41,8 @@ class Transcriber():
             self.device = -1
 
         self.pipeline = pipeline(
-            **asdict(self.config.pipeline_config)
+            **asdict(self.config.pipeline_config),
+            device=self.device
         )
     
     def transcribe(self, recording: NumpyRecording):
