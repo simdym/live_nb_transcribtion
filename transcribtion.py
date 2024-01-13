@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from dataclasses import dataclass, asdict
 from transformers import pipeline
+import torch
 
 from recording import NumpyRecording
 
@@ -33,6 +34,12 @@ class TranscriberConfig:
 class Transcriber():
     def __init__(self, config: TranscriberConfig):
         self.config = config
+
+        if torch.cuda.is_available():
+            self.device = 0
+        else:
+            self.device = -1
+
         self.pipeline = pipeline(
             **asdict(self.config.pipeline_config)
         )
